@@ -1,7 +1,7 @@
 'use strict';
 
 const server=require('../src/server');
-
+require('@code-fellows/supergoose');
 const superTest=require('supertest');
 const serverRequest=superTest(server.app);
 
@@ -46,89 +46,71 @@ describe('testing server',()=>{
 
   describe('test food API',()=>{
     it('post',async ()=>{
-      let res=await serverRequest.post('/food').send({
-        food:'salad',
+      let res=await serverRequest.post('/api/v1/food').send({
+        type:'salad',
+        colories:10,
       });
       expect(res.status).toEqual(201);
-      expect(res.body.record.food).toEqual('salad');
-      id= res.body.id;
+      expect(res.body.type).toEqual('salad');
+      id= res.body._id;
     });
-    it('get all food on GET /food', async () => {
-      const response = await serverRequest.get('/food');
+    it('get all food on GET /api/v1/food', async () => {
+      const response = await serverRequest.get('/api/v1/food');
       expect(response.status).toEqual(200);
     });
-    it('get a food on Get /food/:id', async () => {
-      const res = await serverRequest.get(`/food/${id}`);
+    it('get a food on Get /api/v1/food/:id', async () => {
+      const res = await serverRequest.get(`/api/v1/food/${id}`);
       expect(res.status).toEqual(200);
-      expect(res.body.record.food).toEqual('salad');
+      expect(res.body.type).toEqual('salad');
       
     });
-    it('update a food on PUT /food', async () => {
-      const res = await serverRequest.put(`/food/${id}`).send({
-        food:'mansaf',
+    it('update a food on PUT /api/v1/food', async () => {
+      const res = await serverRequest.put(`/api/v1/food/${id}`).send({
+        type:'mansaf',
+        colories:1000,
       });
       expect(res.status).toEqual(200);
-      expect(res.body.record.food).toEqual('mansaf');
+      expect(res.body.type).toEqual('mansaf');
       
     });
-    it('delete specific food on DELETE /food/:id', async () => {
-      const res = await serverRequest.delete(`/food/${id}`);
+    it('delete specific food on DELETE /api/v1/food/:id', async () => {
+      const res = await serverRequest.delete(`/api/v1/food/${id}`);
       expect(res.status).toEqual(202);
-      expect(res.body).toEqual({
-        msg: 'Item is deleted',
-        deleted: true,
-      });
-    });
-    it('delete not found clothes on food /food/:id', async () => {
-      const res = await serverRequest.delete(`/food/10`);
-      expect(res.status).toEqual(204);
-      expect(res.body).toEqual({
-       
-      });
     });
   });
 
   describe('test clothes API',()=>{
     it('post',async ()=>{
-      let res=await serverRequest.post('/clothes').send({
-        clothes:'t-shirt',
+      let res=await serverRequest.post('/api/v1/clothes').send({
+        type:'t-shirt',
+        brand:'nike',
       });
       expect(res.status).toEqual(201);
-      expect(res.body.record.clothes).toEqual('t-shirt');
-      id= res.body.id;
+      expect(res.body.type).toEqual('t-shirt');
+      id= res.body._id;
     });
-    it('get all clothes on GET /clothes', async () => {
-      const response = await serverRequest.get('/clothes');
+    it('get all clothes on GET /api/v1/clothes', async () => {
+      const response = await serverRequest.get('/api/v1/clothes');
       expect(response.status).toEqual(200);
     });
-    it('get a clothes on Get /clothes/:id', async () => {
-      const res = await serverRequest.get(`/clothes/${id}`);
+    it('get a clothes on Get /api/v1/clothes/:id', async () => {
+      const res = await serverRequest.get(`/api/v1/clothes/${id}`);
       expect(res.status).toEqual(200);
-      expect(res.body.record.clothes).toEqual('t-shirt');
+      expect(res.body.type).toEqual('t-shirt');
       
     });
-    it('update a clothes on PUT /clothes', async () => {
-      const res = await serverRequest.put(`/clothes/${id}`).send({
-        clothes:'pants',
+    it('update a clothes on PUT /api/v1/clothes', async () => {
+      const res = await serverRequest.put(`/api/v1/clothes/${id}`).send({
+        type:'pants',
+        brand:'nike',
       });
       expect(res.status).toEqual(200);
-      expect(res.body.record.clothes).toEqual('pants');
+      expect(res.body.type).toEqual('pants');
       
     });
-    it('delete specific clothes on DELETE /clothes/:id', async () => {
-      const res = await serverRequest.delete(`/clothes/${id}`);
+    it('delete specific clothes on DELETE /api/v1/clothes/:id', async () => {
+      const res = await serverRequest.delete(`/api/v1/clothes/${id}`);
       expect(res.status).toEqual(202);
-      expect(res.body).toEqual({
-        msg: 'Item is deleted',
-        deleted: true,
-      });
-    });
-    it('delete not found clothes on DELETE /clothes/:id', async () => {
-      const res = await serverRequest.delete(`/clothes/10`);
-      expect(res.status).toEqual(204);
-      expect(res.body).toEqual({
-       
-      });
     });
   });
 

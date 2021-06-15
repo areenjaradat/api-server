@@ -5,6 +5,12 @@ require('@code-fellows/supergoose');
 const superTest=require('supertest');
 const serverRequest=superTest(server.app);
 
+
+
+const clothes=require('../src/models/clothes');
+const food=require('../src/models/food');
+const dataCollection=require('../src/models/data-collection-class');
+
 let id;
 
 describe('testing server',()=>{
@@ -26,22 +32,22 @@ describe('testing server',()=>{
     expect(response.status).toEqual(404);
   });
 
-  let spyCons;
-  let spyListen;
-  beforeEach(()=>{
-    spyCons=jest.spyOn(console,'log').mockImplementation();
-    spyListen=jest.spyOn(server.app,'listen');
+  // let spyCons;
+  // let spyListen;
+  // beforeEach(()=>{
+  //   spyCons=jest.spyOn(console,'log').mockImplementation();
+  //   spyListen=jest.spyOn(server.app,'listen');
     
-  });
-  afterEach(()=>{
-    spyCons.mockRestore();
-    spyListen.mockRestore();
-  });
-  it('test app.listen',()=>{
-    const port=3000;
-    server.start(port);
-    expect(spyListen).toHaveBeenCalled();
-  });
+  // });
+  // afterEach(()=>{
+  //   spyCons.mockRestore();
+  //   spyListen.mockRestore();
+  // });
+  // it('test app.listen',()=>{
+  //   const port=3000;
+  //   server.start(port);
+  //   expect(spyListen).toHaveBeenCalled();
+  // });
   
 
   describe('test food API',()=>{

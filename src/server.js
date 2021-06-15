@@ -1,7 +1,7 @@
 'use strict';
 
 const express=require('express');
-
+const cors=require('cors');
 const errorHandler=require('./handlers/500');
 const notFoundHandler=require('./handlers/404');
 
@@ -15,7 +15,7 @@ const app=express();
 //Global middleware
 app.use(logger);
 app.use(express.json());
-
+app.use(cors);
 
 app.use('/api/v1',clothes);
 app.use('/api/v1',food);

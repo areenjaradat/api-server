@@ -12,10 +12,12 @@ const food=require('./routes/food');
 
 const app=express();
 
+app.use(cors());
+
 //Global middleware
 app.use(logger);
 app.use(express.json());
-app.use(cors);
+
 
 app.use('/api/v1',clothes);
 app.use('/api/v1',food);
